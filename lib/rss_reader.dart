@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:rss_news_feed/rss_item.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RSSReader extends StatefulWidget {
   RSSReader() : super();
@@ -45,7 +45,7 @@ class RSSReaderState extends State<RSSReader> {
     loadFeed().then((result) {
       if (result == null || result.toString().isEmpty) {
         return;
-      }else{
+      } else {
         updateFeeds(result);
       }
     });
@@ -78,7 +78,6 @@ class RSSReaderState extends State<RSSReader> {
     return isFeedEmpty()
         ? Center(
             child: CircularProgressIndicator(),
-
           )
         : RefreshIndicator(
             key: _refreshKey,
@@ -109,28 +108,9 @@ class RSSReaderState extends State<RSSReader> {
               onTap: () => openFeed(item.link),
               child: Container(
                   padding: EdgeInsets.all(10.0),
-                  margin: EdgeInsets.only(
-                    bottom: 10.0,
-                  ),
+                  margin: EdgeInsets.only(bottom: 10.0),
                   decoration: customBoxDecoration(),
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        item.title,
-                        textDirection: TextDirection.ltr,
-                        style: GoogleFonts.oswald(
-                          fontSize: 20,
-                        ),
-                      ),
-                      Image.network(item.enclosure.url,
-                          height: 200, fit: BoxFit.fill),
-                      Text(
-                        item.description,
-                        style: GoogleFonts.oswald(),
-                        textAlign: TextAlign.justify,
-                      ),
-                    ],
-                  )));
+                  child: MyRssItem(item)));
         },
       ),
     );
