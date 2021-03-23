@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'rss_reader.dart';
+import 'package:rss_news_feed/database/database_manager.dart';
+import 'screens/news_feed_screen.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DataBaseManager.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RSSReader(),
+      debugShowCheckedModeBanner: false,
+      home: NewsFeedScreen(),
     );
   }
 }

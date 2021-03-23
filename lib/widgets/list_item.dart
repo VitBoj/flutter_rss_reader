@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
-class MyRssItem extends StatelessWidget {
+class ListItem extends StatelessWidget {
   var item;
 
-  MyRssItem(this.item);
+  ListItem(this.item);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       margin: EdgeInsets.all(5.0),
       child: Column(
@@ -22,12 +21,18 @@ class MyRssItem extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5),
-          Image.network(item.enclosure.url, height: 200, fit: BoxFit.fill),
+          Stack(
+            children: <Widget>[
+              Image.asset('assets/no_image.png', height: 200),
+              Image.network(item.imgUrl, height: 200, fit: BoxFit.fill),
+            ],
+          ),
           SizedBox(height: 5),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
               item.description,
+              textAlign: TextAlign.justify,
               style: GoogleFonts.oswald(fontSize: 15),
             ),
           ),
